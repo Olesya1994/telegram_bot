@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pro.sky.telegrambot.repository.NotificationRepository;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +31,7 @@ public class NotificationScheduler {
         repository.findAllByDateTime(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES))
                 .forEach(notificationTask -> {
                     bot.execute(new SendMessage(notificationTask.getChatId(), notificationTask.getText()));
-                    logger.info("Задача отправлена"+notificationTask);
+                    logger.info("Задача отправлена" + notificationTask);
                     repository.delete(notificationTask);
                 });
 
