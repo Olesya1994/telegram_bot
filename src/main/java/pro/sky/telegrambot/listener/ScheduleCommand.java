@@ -30,7 +30,11 @@ public class ScheduleCommand implements Command {
     public boolean isPossibleToConvert(Update update) {
         Pattern pattern = Pattern.compile("([0-9\\.\\:\\s]{16})(\\s)([\\W+]+)");
         Matcher matcher = pattern.matcher(update.message().text());
-        return matcher.matches();
+        boolean response = matcher.matches();
+    if (!response){
+        SendMessage message = new SendMessage(update.message().chat().id(), "Формат команды не верен");
+        bot.execute(message);}
+        return response;
     }
 
     @Override
@@ -52,8 +56,7 @@ public class ScheduleCommand implements Command {
             repository.save(new NotificationTask(text, charId, dateTime));
             SendMessage message = new SendMessage(update.message().chat().id(), "записано сообытие" + date + " " + text);
             bot.execute(message);
+
         }
-        SendMessage message = new SendMessage(update.message().chat().id(), "Формат команды не верен");
-        bot.execute(message);
     }
 }
