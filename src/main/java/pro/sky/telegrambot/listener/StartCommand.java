@@ -13,12 +13,14 @@ public class StartCommand implements Command {
     public StartCommand(TelegramBot bot) {
         this.bot = bot;
     }
+
     @Override
-    public boolean isPossibleToConvert(Update update){
+    public boolean isPossibleToConvert(Update update) {
         return update.message().text().equals("/start");
     }
+
     @Override
-    public void sendRespond(Update update){
+    public void sendRespond(Update update) {
         SendMessage message = new SendMessage(update.message().chat().id(), "Добро пожаловать");
         SendResponse response = bot.execute(message);
     }
