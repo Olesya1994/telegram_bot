@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class TelegramBotUpdatesListener implements UpdatesListener {
     @Autowired
-    List<Command> commands;
+    private List<Command> commands;
 
     private Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);
 
